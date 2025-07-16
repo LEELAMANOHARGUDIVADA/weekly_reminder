@@ -32,7 +32,7 @@ def schedule_reminder():
     def reminder():
         current_time = datetime.now(ist)
         print(current_time)
-        if current_time.weekday() == 2 and current_time.hour == 16 and current_time.minute == 17:
+        if current_time.weekday() == 4 and current_time.hour == 19 and current_time.minute == 0:
             send_reminder()
 
     schedule.every().minute.do(reminder)
