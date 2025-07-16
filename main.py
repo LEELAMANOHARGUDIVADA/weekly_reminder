@@ -9,9 +9,8 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 config = dotenv_values(".env")
 
-CHANNEL_WEBHOOK_URL=config['CHANNEL_WEBHOOK_URL']
-BOT_WEBHOOK_URL=config['BOT_WEBHOOK_URL']
-
+BOT_WEBHOOK_URL="https://cliq.zoho.in/company/60035345032/api/v2/bots/weeklyreminderbot/message?zapikey=1001.5d1368846882417b37751dd9b5f53094.cee8b02d5b2db0909ea7ea5153c2b826"
+CHANNEL_WEBHOOK_URL="https://cliq.zoho.in/company/60035345032/api/v2/channelsbyname/weeklyreminder/message?zapikey=1001.5d1368846882417b37751dd9b5f53094.cee8b02d5b2db0909ea7ea5153c2b826"
 
 def send_reminder():
     payload = {
