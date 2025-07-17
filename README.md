@@ -14,6 +14,10 @@
     ```
       BOT_WEBHOOK_URL="your-bot-webhook-url"
       CHANNEL_WEBHOOK_URL="your-channel-webhook-url"
+      SMTP_PORT=587
+      SENDER_ZOHO_PASSWORD="your-zoho-app-specific-password"
+      SENDER_ZOHO_EMAIL="your-zoho-email"
+      SMTP_ZOHO_SERVER=smtp.zoho.in
    ```
 4. Run the application in the terminal
     ```
