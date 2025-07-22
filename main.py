@@ -1,4 +1,5 @@
 import json
+import sqlite3
 import threading
 from datetime import datetime
 from email.mime.text import MIMEText
@@ -10,8 +11,14 @@ import urllib3
 import smtplib
 from flask import Flask, jsonify, request
 import pandas as pd
-from scheduler import schedule_reminder
-from utils.alert_history import update_alert_history
+from constants.db_queries import create_table
+from db.db import connect_db
+from utils.scheduler import schedule_reminder
+from utils.alert_history import update_alert_history, get_all_alert_history
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 config = dotenv_values()
@@ -44,28 +51,27 @@ def send_emails():
             message['Subject'] = emailData['emails'][0]['subject']
             message['From'] = config['SENDER_ZOHO_EMAIL']
             message['To'] = email
-            print(message['To'])
+            # print(message['To'])
+            logger.info(message['To'])
             s.send_message(message)
         update_alert_history(current_time=current_time, message=message, platform="Zoho")
-        print("Emails sent")
+        logger.info("Emails sent")
         return  jsonify(success=True, message="Emails sent")
     except smtplib.SMTPException as e:
         return jsonify(success=False, message=str(e))
 
 @app.route('/alert-history', methods=['GET'])
 def get_alert_history():
-    data = json.load(open('data/alert_history.json'))
-    if len(data['history']) == 0:
-        return jsonify(success=False, message="No Alert History Found"), 404
-
-    return jsonify(success=True, history=data['history'])
+    data = get_all_alert_history()
+    return jsonify(success=True, history=data)
 
 def run_flask():
-    print("Flask App Running")
+    logger.info("Flask App Running")
     app.run(debug=True, use_reloader=False)
 
 if __name__ == "__main__":
-    print("Reminder bot started")
+    logger.info("Reminder bot started")
+    connect_db()
     schedule_reminder(messages['messages'][0]['weekly_reminder'], BOT_WEBHOOK_URL)
     thread = threading.Thread(target=run_flask)
     thread.daemon = True
