@@ -9,6 +9,14 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  bot_webhook_url: ${{ secrets.BOT_WEBHOOK_URL }}
+  channel_webhook_url: ${{ secrets.CHANNEL_WEBHOOK_URL }}
+  smtp_port: ${{ secrets.SMTP_PORT }}
+  sender_zoho_password: ${{ secrets.SENDER_ZOHO_PASSWORD }}
+  sender_zoho_email: ${{ secrets.SENDER_ZOHO_EMAIL }}
+  smtp_zoho_server: ${{ secrets.SMTP_ZOHO_SERVER }}
+
 permissions:
   contents: read
 

@@ -1,5 +1,5 @@
+import os
 import json
-import sqlite3
 import threading
 from datetime import datetime
 from email.mime.text import MIMEText
@@ -11,7 +11,6 @@ import urllib3
 import smtplib
 from flask import Flask, jsonify, request
 import pandas as pd
-from constants.db_queries import create_table
 from db.db import connect_db
 from utils.scheduler import schedule_reminder
 from utils.alert_history import update_alert_history, get_all_alert_history
@@ -21,8 +20,15 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-config = dotenv_values()
-
+# config = dotenv_values()
+config = {
+    "BOT_WEBHOOK_URL": os.environ['bot_webhook_url'],
+    "CHANNEL_WEBHOOK_URL": os.environ['channel_webhook_url'],
+    "SMTP_PORT": os.environ['smtp_port'],
+    "SENDER_ZOHO_PASSWORD": os.environ['sender_zoho_password'],
+    "SENDER_ZOHO_EMAIL": os.environ['sender_zoho_email'],
+    "SMTP_ZOHO_SERVER": os.environ['smtp_zoho_server']
+}
 messages = json.load(open("data/alert_messages.json"))
 emailData = json.load(open("data/alert_emails.json"))
 app = Flask(__name__)
@@ -51,7 +57,6 @@ def send_emails():
             message['Subject'] = emailData['emails'][0]['subject']
             message['From'] = config['SENDER_ZOHO_EMAIL']
             message['To'] = email
-            # print(message['To'])
             logger.info(message['To'])
             s.send_message(message)
         update_alert_history(current_time=current_time, message=message, platform="Zoho")
