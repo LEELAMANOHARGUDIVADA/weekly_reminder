@@ -27,7 +27,7 @@ def schedule_reminder(message, BOT_WEBHOOK_URL):
     def reminder():
         current_time = datetime.now(ist)
         logger.info(current_time)
-        if current_time.weekday() == 2 and current_time.hour == 16 and current_time.minute == 30:
+        if current_time.weekday() == 2 and current_time.hour == 16 and current_time.minute == 33:
             send_reminder(current_time, message, BOT_WEBHOOK_URL)
 
     schedule.every().minute.do(reminder)
