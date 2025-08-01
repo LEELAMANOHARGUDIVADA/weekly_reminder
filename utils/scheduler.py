@@ -38,25 +38,12 @@ def send_reminder(current_time, message, BOT_WEBHOOK_URL):
     except requests.exceptions.RequestException as e:
         logger.error("Error sending reminder:", e)
 
-
-# def schedule_reminder(message, BOT_WEBHOOK_URL):
-#     ist = pytz.timezone('Asia/Kolkata')
-#
-#     def reminder():
-#         current_time = datetime.now(ist)
-#         logger.info(current_time)
-#
-#         if current_time.weekday() == 4 and current_time.hour == 15 and current_time.minute == 59:
-#             send_reminder(current_time, message, BOT_WEBHOOK_URL)
-#
-#     schedule.every().minute.do(reminder)
-
 def should_send_reminder():
     ist = pytz.timezone('Asia/Kolkata')
     current_time = datetime.now(ist)
     logger.info(f"Current time: {current_time}")
 
-    # Only send on Friday (weekday 4) at 15:59 IST
+
     return current_time.weekday() == 4 and current_time.hour == 19
 if __name__ == "__main__":
     logger.info("Reminder bot started")
