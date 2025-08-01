@@ -19,8 +19,6 @@ env:
   sender_zoho_email: ${{ secrets.SENDER_ZOHO_EMAIL }}
   smtp_zoho_server: ${{ secrets.SMTP_ZOHO_SERVER }}
 
-permissions:
-  contents: read
 
 jobs:
 
