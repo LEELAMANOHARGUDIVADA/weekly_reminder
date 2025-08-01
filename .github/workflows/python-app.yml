@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '0 19 * * 5'
 
 env:
   bot_webhook_url: ${{ secrets.BOT_WEBHOOK_URL }}
