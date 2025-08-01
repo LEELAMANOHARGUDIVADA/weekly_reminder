@@ -8,6 +8,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: '*/1 * * * *'
 
 env:
   bot_webhook_url: ${{ secrets.BOT_WEBHOOK_URL }}
@@ -43,6 +45,10 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
-    - name: Run application
+    - name: Run Flask application
       run: |
         python main.py
+
+    - name: Run Scheduler
+      run: |
+        python utils/scheduler.py

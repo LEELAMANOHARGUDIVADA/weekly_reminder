@@ -1,12 +1,31 @@
+import json
 import requests
 from datetime import datetime
 import pytz
 import logging
-from utils.alert_history import update_alert_history
+from dotenv import dotenv_values
+import os
 import schedule
+import time
+import urllib3
+from alert_history import update_alert_history
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-logger = logging.getLogger()
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
+# BOT_WEBHOOK_URL = os.environ['bot_webhook_url']
+messages = json.load(open("../data/alert_messages.json"))
+config = {
+    "BOT_WEBHOOK_URL": os.environ['bot_webhook_url'],
+    "CHANNEL_WEBHOOK_URL": os.environ['channel_webhook_url'],
+    "SMTP_PORT": os.environ['smtp_port'],
+    "SENDER_ZOHO_PASSWORD": os.environ['sender_zoho_password'],
+    "SENDER_ZOHO_EMAIL": os.environ['sender_zoho_email'],
+    "SMTP_ZOHO_SERVER": os.environ['smtp_zoho_server']
+}
+
+# config = dotenv_values()
 def send_reminder(current_time, message, BOT_WEBHOOK_URL):
     payload = {
         "text": message
@@ -27,8 +46,16 @@ def schedule_reminder(message, BOT_WEBHOOK_URL):
     def reminder():
         current_time = datetime.now(ist)
         logger.info(current_time)
-        if current_time.weekday() == 2 and current_time.hour == 16 and current_time.minute == 33:
+
+        if current_time.weekday() == 4 and current_time.hour == 15 and current_time.minute == 59:
             send_reminder(current_time, message, BOT_WEBHOOK_URL)
 
     schedule.every().minute.do(reminder)
 
+
+if __name__ == "__main__":
+    logger.info("Reminder bot started")
+    schedule_reminder(messages['messages'][0]['weekly_reminder'], config['BOT_WEBHOOK_URL'])
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

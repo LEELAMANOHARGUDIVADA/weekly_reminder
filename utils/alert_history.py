@@ -6,7 +6,7 @@ from constants.db_queries import insert_alert, get_all_alerts
 
 logger = logging.getLogger()
 
-conn = sqlite3.connect('alerts.db', check_same_thread=False)
+conn = sqlite3.connect('../alerts.db', check_same_thread=False)
 cursor = conn.cursor()
 
 def update_alert_history(current_time, message, platform):
