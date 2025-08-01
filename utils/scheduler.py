@@ -8,7 +8,6 @@ import os
 import schedule
 import time
 import urllib3
-from alert_history import update_alert_history
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 logging.basicConfig(level=logging.DEBUG)
@@ -34,7 +33,7 @@ def send_reminder(current_time, message, BOT_WEBHOOK_URL):
         response = requests.post(BOT_WEBHOOK_URL, json=payload, verify=False)
         logger.info("Request sent")
         response.raise_for_status()
-        update_alert_history(current_time=current_time, message=message, platform="CLIQ")
+        # update_alert_history(current_time=current_time, message=message, platform="CLIQ")
         logger.info("Reminder sent successfully")
     except requests.exceptions.RequestException as e:
         logger.error("Error sending reminder:", e)
