@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # BOT_WEBHOOK_URL = os.environ['bot_webhook_url']
-messages = json.load(open("../data/alert_messages.json"))
+# messages = json.load(open("../data/alert_messages.json"))
 config = {
     "BOT_WEBHOOK_URL": os.environ['bot_webhook_url'],
     "CHANNEL_WEBHOOK_URL": os.environ['channel_webhook_url'],
@@ -54,7 +54,7 @@ def schedule_reminder(message, BOT_WEBHOOK_URL):
 
 if __name__ == "__main__":
     logger.info("Reminder bot started")
-    schedule_reminder(messages['messages'][0]['weekly_reminder'], config['BOT_WEBHOOK_URL'])
+    schedule_reminder("Reminder: Please Submit Timesheets Today By EOD", config['BOT_WEBHOOK_URL'])
     while True:
         schedule.run_pending()
         time.sleep(1)
