@@ -57,7 +57,7 @@ def should_send_reminder():
     logger.info(f"Current time: {current_time}")
 
     # Only send on Friday (weekday 4) at 15:59 IST
-    return current_time.weekday() == 4 and current_time.hour == 19 and current_time.minute == 0
+    return current_time.weekday() == 4 and current_time.hour == 19
 if __name__ == "__main__":
     logger.info("Reminder bot started")
     if should_send_reminder():
