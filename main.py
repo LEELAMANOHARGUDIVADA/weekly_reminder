@@ -74,7 +74,7 @@ def get_alert_history():
 
 def run_flask():
     logger.info("Flask App Running")
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=False, port=6000)
 
 
 if __name__ == "__main__":
