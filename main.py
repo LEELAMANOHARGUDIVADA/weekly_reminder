@@ -16,15 +16,15 @@ from utils.alert_history import get_all_alert_history, update_alert_history
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# config = dotenv_values()
-config = {
-    "BOT_WEBHOOK_URL": os.environ['bot_webhook_url'],
-    "CHANNEL_WEBHOOK_URL": os.environ['channel_webhook_url'],
-    "SMTP_PORT": os.environ['smtp_port'],
-    "SENDER_ZOHO_PASSWORD": os.environ['sender_zoho_password'],
-    "SENDER_ZOHO_EMAIL": os.environ['sender_zoho_email'],
-    "SMTP_ZOHO_SERVER": os.environ['smtp_zoho_server']
-}
+config = dotenv_values()
+# config = {
+#     "BOT_WEBHOOK_URL": os.environ['bot_webhook_url'],
+#     "CHANNEL_WEBHOOK_URL": os.environ['channel_webhook_url'],
+#     "SMTP_PORT": os.environ['smtp_port'],
+#     "SENDER_ZOHO_PASSWORD": os.environ['sender_zoho_password'],
+#     "SENDER_ZOHO_EMAIL": os.environ['sender_zoho_email'],
+#     "SMTP_ZOHO_SERVER": os.environ['smtp_zoho_server']
+# }
 
 emailData = json.load(open("data/alert_emails.json"))
 app = Flask(__name__)
