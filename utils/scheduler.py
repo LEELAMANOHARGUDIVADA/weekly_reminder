@@ -1,13 +1,13 @@
-import json
-import requests
-from datetime import datetime
-import pytz
 import logging
-from dotenv import dotenv_values
 import os
-import schedule
-import time
+from datetime import datetime
+
+import pytz
+import requests
 import urllib3
+
+from utils.alert_history import update_alert_history
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 logging.basicConfig(level=logging.DEBUG)
@@ -24,6 +24,7 @@ config = {
     "SMTP_ZOHO_SERVER": os.environ['smtp_zoho_server']
 }
 
+
 # config = dotenv_values()
 def send_reminder(current_time, message, BOT_WEBHOOK_URL):
     payload = {
@@ -33,18 +34,20 @@ def send_reminder(current_time, message, BOT_WEBHOOK_URL):
         response = requests.post(BOT_WEBHOOK_URL, json=payload, verify=False)
         logger.info("Request sent")
         response.raise_for_status()
-        # update_alert_history(current_time=current_time, message=message, platform="CLIQ")
+        update_alert_history(current_time=current_time, message=message, platform="CLIQ")
         logger.info("Reminder sent successfully")
     except requests.exceptions.RequestException as e:
         logger.error("Error sending reminder:", e)
+
 
 def should_send_reminder():
     ist = pytz.timezone('Asia/Kolkata')
     current_time = datetime.now(ist)
     logger.info(f"Current time: {current_time}")
 
-
     return current_time.weekday() == 4 and current_time.hour == 21
+
+
 if __name__ == "__main__":
     logger.info("Reminder bot started")
     if should_send_reminder():

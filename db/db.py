@@ -1,8 +1,10 @@
-import sqlite3
-from constants.db_queries import create_table
 import logging
+import sqlite3
+
+from constants.db_queries import create_table
 
 logger = logging.getLogger()
+
 
 def connect_db():
     try:

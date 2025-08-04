@@ -1,1 +1,40 @@
-{"history": [{"id": 1, "message": "Reminder: Please Submit Timesheets Today By EOD", "alert_date": "2025-07-22 16:13:26.331823+05:30", "platform": "Cliq"}, {"id": 2, "message": "Reminder: Please Submit Timesheets Today By EOD", "alert_date": "2025-07-22 16:15:46.313636+05:30", "platform": "Cliq"}, {"id": 3, "message": "Content-Type: text/plain; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nSubject: Timesheet Not Submitted\nFrom: mgudivada@miraclesoft.com\nTo: mgudivada@miraclesoft.com\n\nHi,\n\n                You haven't submitted your timesheet this week. Please submit it as soon as possible.\n\n                Thank you", "alert_date": "2025-07-22 16:23:44.964949+05:30", "platform": "Zoho"}, {"id": 4, "message": "Reminder: Please Submit Timesheets Today By EOD", "alert_date": "2025-07-22 19:10:47.238394+05:30", "platform": "Cliq"}, {"id": 5, "message": "Reminder: Please Submit Timesheets Today By EOD", "alert_date": "2025-07-22 19:54:31.535129+05:30", "platform": "Cliq"}, {"id": 6, "message": "Reminder: Please Submit Timesheets Today By EOD", "alert_date": "2025-07-22 19:56:22.422475+05:30", "platform": "Cliq"}]}
+{
+  "history": [
+    {
+      "id": 1,
+      "message": "Reminder: Please Submit Timesheets Today By EOD",
+      "alert_date": "2025-07-22 16:13:26.331823+05:30",
+      "platform": "Cliq"
+    },
+    {
+      "id": 2,
+      "message": "Reminder: Please Submit Timesheets Today By EOD",
+      "alert_date": "2025-07-22 16:15:46.313636+05:30",
+      "platform": "Cliq"
+    },
+    {
+      "id": 3,
+      "message": "Content-Type: text/plain; charset=\"us-ascii\"\nMIME-Version: 1.0\nContent-Transfer-Encoding: 7bit\nSubject: Timesheet Not Submitted\nFrom: mgudivada@miraclesoft.com\nTo: mgudivada@miraclesoft.com\n\nHi,\n\n                You haven't submitted your timesheet this week. Please submit it as soon as possible.\n\n                Thank you",
+      "alert_date": "2025-07-22 16:23:44.964949+05:30",
+      "platform": "Zoho"
+    },
+    {
+      "id": 4,
+      "message": "Reminder: Please Submit Timesheets Today By EOD",
+      "alert_date": "2025-07-22 19:10:47.238394+05:30",
+      "platform": "Cliq"
+    },
+    {
+      "id": 5,
+      "message": "Reminder: Please Submit Timesheets Today By EOD",
+      "alert_date": "2025-07-22 19:54:31.535129+05:30",
+      "platform": "Cliq"
+    },
+    {
+      "id": 6,
+      "message": "Reminder: Please Submit Timesheets Today By EOD",
+      "alert_date": "2025-07-22 19:56:22.422475+05:30",
+      "platform": "Cliq"
+    }
+  ]
+}

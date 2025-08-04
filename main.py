@@ -1,14 +1,17 @@
 import json
-from datetime import datetime
-from email.mime.text import MIMEText
-import pytz
-from dotenv import dotenv_values
-import smtplib
-from flask import Flask, jsonify, request
-import pandas as pd
-from db.db import connect_db
 import logging
 import os
+import smtplib
+from datetime import datetime
+from email.mime.text import MIMEText
+
+import pandas as pd
+import pytz
+from dotenv import dotenv_values
+from flask import Flask, jsonify, request
+
+from db.db import connect_db
+from utils.alert_history import get_all_alert_history, update_alert_history
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -29,8 +32,9 @@ s = smtplib.SMTP(config['SMTP_ZOHO_SERVER'], int(config['SMTP_PORT']))
 s.starttls()
 s.login(config['SENDER_ZOHO_EMAIL'], config['SENDER_ZOHO_PASSWORD'])
 
-BOT_WEBHOOK_URL=config['BOT_WEBHOOK_URL']
-CHANNEL_WEBHOOK_URL=config['CHANNEL_WEBHOOK_URL']
+BOT_WEBHOOK_URL = config['BOT_WEBHOOK_URL']
+CHANNEL_WEBHOOK_URL = config['CHANNEL_WEBHOOK_URL']
+
 
 @app.route('/send-emails', methods=['POST'])
 def send_emails():
@@ -52,20 +56,23 @@ def send_emails():
             message['To'] = email
             logger.info(message['To'])
             s.send_message(message)
-            # update_alert_history(current_time=current_time, message=message, platform="Zoho")
+            update_alert_history(current_time=current_time, message=message, platform="Zoho")
         logger.info("Emails sent")
-        return  jsonify(success=True, message="Emails sent")
+        return jsonify(success=True, message="Emails sent")
     except smtplib.SMTPException as e:
         return jsonify(success=False, message=str(e))
 
-# @app.route('/alert-history', methods=['GET'])
-# def get_alert_history():
-#     data = get_all_alert_history()
-#     return jsonify(success=True, history=data)
+
+@app.route('/alert-history', methods=['GET'])
+def get_alert_history():
+    data = get_all_alert_history()
+    return jsonify(success=True, history=data)
+
 
 def run_flask():
     logger.info("Flask App Running")
     app.run(debug=True, use_reloader=False)
+
 
 if __name__ == "__main__":
     connect_db()
