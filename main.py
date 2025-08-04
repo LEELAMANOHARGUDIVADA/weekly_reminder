@@ -35,6 +35,9 @@ s.login(config['SENDER_ZOHO_EMAIL'], config['SENDER_ZOHO_PASSWORD'])
 BOT_WEBHOOK_URL = config['BOT_WEBHOOK_URL']
 CHANNEL_WEBHOOK_URL = config['CHANNEL_WEBHOOK_URL']
 
+@app.route('/')
+def index():
+    return "SERVER IS UP AND RUNNING"
 
 @app.route('/send-emails', methods=['POST'])
 def send_emails():
