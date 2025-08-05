@@ -44,7 +44,7 @@ def should_send_reminder():
     current_time = datetime.now(ist)
     logger.info(f"Current time: {current_time}")
 
-    return current_time.weekday() == 4 and current_time.hour == 21
+    return current_time.weekday() == 4 and current_time.hour == 19
 
 
 if __name__ == "__main__":
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         send_reminder(
             datetime.now(pytz.timezone('Asia/Kolkata')),
             "Reminder: Please Submit Timesheets Today By EOD",
-            config['BOT_WEBHOOK_URL']
+            config['CHANNEL_WEBHOOK_URL']
         )
     else:
         logger.info("Not the scheduled time. No reminder sent.")
